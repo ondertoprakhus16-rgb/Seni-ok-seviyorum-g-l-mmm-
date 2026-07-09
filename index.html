@@ -32,3 +32,75 @@
             100% { transform: translateY(-10vh) scale(1.2) rotate(360deg); opacity: 0; }
         }
         .floating
+            </style>
+</head>
+<body class="min-h-screen d-flex align-items-center justify-content-center position-relative m-0 p-3">
+
+    <div id="heart-container" class="position-absolute top-0 start-0 w-100 h-100 overflow-hidden"></div>
+
+    <div id="main-card" class="bg-white/90 backdrop-blur-md rounded-3xl p-4 p-sm-5 text-center shadow-2xl max-w-md w-100 border border-pink-100 position-relative" style="z-index: 10;">
+        <div id="heart-wrapper" class="mb-4">
+            <button onclick="openGift()" class="heart-btn bg-pink-500 hover:bg-pink-600 text-white rounded-full w-20 h-20 d-flex align-items-center justify-content-center shadow-lg border-0 mx-auto transition-transform">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 fill-current" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </button>
+            <p class="text-pink-500 font-medium mt-3 text-sm">Kalbe Tıkla Gülüm ❤️</p>
+        </div>
+
+        <div id="content-area" class="d-none">
+            <h1 class="love-font text-4xl text-pink-600 mb-2 font-bold">İrem'e...</h1>
+            <p class="text-gray-700 text-base mb-4 font-medium">Seni çok seviyorum gülüm. Sen de beni seviyor musun?</p>
+            
+            <div class="d-flex justify-content-center gap-3 align-items-center position-relative min-h-[60px]">
+                <button onclick="sayYes()" class="btn btn-success rounded-full px-4 py-2 font-semibold text-base shadow-md border-0 bg-emerald-500">Evet</button>
+                <button id="no-btn" onmouseover="moveNo()" onclick="moveNo()" class="btn btn-danger rounded-full px-4 py-2 font-semibold text-base shadow-md border-0 bg-rose-500" style="position: relative; transition: all 0.2s ease;">Hayır</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function createHeart() {
+            const container = document.getElementById('heart-container');
+            if(!container) return;
+            const heart = document.createElement('div');
+            heart.classList.add('bg-heart');
+            heart.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 3 + 's';
+            const size = Math.random() * 20 + 10;
+            heart.style.width = size + 'px';
+            heart.style.height = size + 'px';
+            container.appendChild(heart);
+            setTimeout(() => { heart.remove(); }, 6000);
+        }
+        setInterval(createHeart, 400);
+
+        function openGift() {
+            document.getElementById('heart-wrapper').classList.add('d-none');
+            document.getElementById('content-area').classList.remove('d-none');
+        }
+
+        function moveNo() {
+            const btn = document.getElementById('no-btn');
+            const card = document.getElementById('main-card');
+            const padding = 20;
+            const maxX = card.clientWidth - btn.clientWidth - padding;
+            const maxY = card.clientHeight - btn.clientHeight - padding;
+            const randomX = Math.random() * (maxX - padding) + padding - (card.clientWidth / 2) + (btn.clientWidth / 2);
+            const randomY = Math.random() * (maxY - padding) + padding - (card.clientHeight / 2) + (btn.clientHeight / 2);
+            btn.style.position = 'absolute';
+            btn.style.left = `calc(50% + ${randomX}px)`;
+            btn.style.top = `calc(50% + ${randomY}px)`;
+        }
+
+        function sayYes() {
+            document.getElementById('main-card').innerHTML = `
+                <h1 class="love-font text-5xl text-pink-600 mb-3 font-bold">Oleyyy! 🎉</h1>
+                <p class="text-gray-700 text-lg font-semibold mb-2">Ben de seni çok seviyorum dünyalar güzelim! ❤️</p>
+                <p class="text-pink-500 font-medium text-sm">İyi ki varsın... 🌹</p>
+            `;
+            setInterval(createHeart, 100);
+        }
+    </script>
+</body>
+</html>
+
